@@ -13,7 +13,7 @@ public class Main {
     public static void main(String[] args) {
 
         //TODO: Find a way to hide token
-        String token = "NTEwOTUzODIzNTE1MzEyMTM4.W-dk1A.bBeA-uzE96QnW2hrt3RQ5Hz14Ug";
+        String token = "";
         DiscordApi api = new DiscordApiBuilder().setToken(token).login().join();
 
         // Add a listener which answers with "Pong!" if someone writes "^ping"
