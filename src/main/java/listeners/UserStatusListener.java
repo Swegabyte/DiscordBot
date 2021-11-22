@@ -15,9 +15,8 @@ public class UserStatusListener implements UserChangeStatusListener {
     @Override
     public void onUserChangeStatus(UserChangeStatusEvent userChangeStatusEvent) {
 
-        String logStatement = userChangeStatusEvent.getUserIdAsString() + " is now " +
+        String logStatement = "[STATUS CHANGE] " +  userChangeStatusEvent.getUserIdAsString() + " is now " +
                 userChangeStatusEvent.getNewStatus().getStatusString();
-
         ChannelLogger.logToLoggingChannel(logStatement, api);
     }
 }
