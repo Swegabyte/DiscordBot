@@ -12,7 +12,6 @@ public class Main {
 
         Logger log = Log4JInitializer.initializeLogger(Main.class);
 
-        //TODO: Find a way to hide token
         //Initialize bot and connect to server.
         String token = System.getenv("DISC_TOKEN");
         DiscordApi api = new DiscordApiBuilder().setToken(token).login().join();
