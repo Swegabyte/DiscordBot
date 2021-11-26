@@ -1,4 +1,4 @@
-import listeners.ChannelCleanUpListener;
+import listeners.ChannelMessageListener;
 import listeners.UserStatusListener;
 import logging.ChannelLogger;
 import logging.Log4JInitializer;
@@ -38,7 +38,7 @@ public class Main {
         //Add Channel Cleanup listener
         log.info("Initializing Channel Cleanup listener");
         ChannelLogger.logToLoggingChannel("Initializing Channel Cleanup listener", api);
-        api.addListener(new ChannelCleanUpListener());
+        api.addListener(new ChannelMessageListener());
 
         Thread killMessage = new Thread(() -> ChannelLogger.logToLoggingChannel("Bot is now kill", api));
         Runtime.getRuntime().addShutdownHook(killMessage);
