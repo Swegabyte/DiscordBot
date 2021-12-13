@@ -1,4 +1,5 @@
-import listeners.ChannelCleanUpListener;
+import listeners.ChannelMessageListener;
+import listeners.EmojiReactionsListener;
 import listeners.UserStatusListener;
 import logging.ChannelLogger;
 import logging.Log4JInitializer;
@@ -12,10 +13,10 @@ public class Main {
 
         Logger log = Log4JInitializer.initializeLogger(Main.class);
 
-        //TODO: Find a way to hide token
         //Initialize bot and connect to server.
         String token = System.getenv("DISC_TOKEN");
         DiscordApi api = new DiscordApiBuilder().setToken(token).login().join();
+        api.updateActivity("Under Construction. Pardon my dust. :)");
         ChannelLogger.initializeLoggingChannel(api);
         ChannelLogger.logToLoggingChannel("Bot starting up.", api);
 
@@ -39,7 +40,12 @@ public class Main {
         //Add Channel Cleanup listener
         log.info("Initializing Channel Cleanup listener");
         ChannelLogger.logToLoggingChannel("Initializing Channel Cleanup listener", api);
-        api.addListener(new ChannelCleanUpListener());
+        api.addListener(new ChannelMessageListener());
+
+        //Add Reaction listener
+        log.info("Initializing Reaction listener");
+        ChannelLogger.logToLoggingChannel("Initializing Reaction listener", api);
+        api.addListener(new EmojiReactionsListener());
 
         Thread killMessage = new Thread(() -> ChannelLogger.logToLoggingChannel("Bot is now kill", api));
         Runtime.getRuntime().addShutdownHook(killMessage);

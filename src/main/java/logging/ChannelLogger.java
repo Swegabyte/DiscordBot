@@ -10,8 +10,7 @@ import java.util.Optional;
 
 public class ChannelLogger {
     public static final String  LOGGING_CHANNEL = "bot-logging";
-    public static final String  SERVER_NAME = "The MemeSpeak";
-    public static final String MEMESPEAK_ID = "499805062315507713";
+    public static final String MEMESPEAK_ID = System.getenv("SERVER_ID");
 
     public static void logToLoggingChannel(String logStatement,DiscordApi api){
         Optional<TextChannel> logChannel = findChannelByName(LOGGING_CHANNEL, api);
