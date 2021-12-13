@@ -6,8 +6,11 @@ import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.event.message.MessageCreateEvent;
 import org.javacord.api.listener.message.MessageCreateListener;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 public class ChannelMessageListener implements MessageCreateListener {
@@ -27,20 +30,20 @@ public class ChannelMessageListener implements MessageCreateListener {
     private void cleanUpMessage(MessageCreateEvent event){
         event.getChannel().sendMessage("Cleaning up messages!");
         TextChannel textChannel = event.getChannel();
-        textChannel.getMessagesAsStream().forEach(Message::delete);
-        event.getChannel().sendMessage("Channel messages deleted.");
+        Stream<Message> messagesToDelete = textChannel.getMessagesAsStream();
+        textChannel.bulkDelete(messagesToDelete.collect(Collectors.toList()));
     }
 
     private void helpMessage(MessageCreateEvent event){
         //Send user a message listing out possible features
         EmbedBuilder embed = new EmbedBuilder()
                 .setTitle("Help results")
-                .setDescription("List of features you can use!");
+                .setDescription("List of features you can use!")
+                .setImage(new File("src/main/resources/memespeak.jpg"));
 
         for (Map.Entry<String,String> entry : featuresList.entrySet()) {
             embed.addField(entry.getKey(), entry.getValue());
         }
-
         event.getChannel().sendMessage(embed);
     }
 
