@@ -8,12 +8,12 @@ import java.util.Optional;
 //Parse useful data out of events instead of processing in listener.
 public class EventParser {
 
-    public static String getChannelName(TextChannel channel){
+    public String getChannelName(TextChannel channel){
         String channelToString = channel.toString();
         return getLastValueOfToString(channelToString);
     }
 
-    public static String getMessage(Optional<Message> message){
+    public String getMessage(Optional<Message> message){
         String channelToString = message.toString();
         return getLastValueOfToString(channelToString);
     }
